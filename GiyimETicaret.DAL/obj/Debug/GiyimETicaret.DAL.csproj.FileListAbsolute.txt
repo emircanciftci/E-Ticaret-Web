@@ -1,0 +1,12 @@
+C:\Users\emirr\source\repos\GiyimETicaret\GiyimETicaret.DAL\bin\Debug\GiyimETicaret.DAL.dll.config
+C:\Users\emirr\source\repos\GiyimETicaret\GiyimETicaret.DAL\bin\Debug\GiyimETicaret.DAL.dll
+C:\Users\emirr\source\repos\GiyimETicaret\GiyimETicaret.DAL\bin\Debug\GiyimETicaret.DAL.pdb
+C:\Users\emirr\source\repos\GiyimETicaret\GiyimETicaret.DAL\bin\Debug\EntityFramework.dll
+C:\Users\emirr\source\repos\GiyimETicaret\GiyimETicaret.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\emirr\source\repos\GiyimETicaret\GiyimETicaret.DAL\bin\Debug\EntityFramework.xml
+C:\Users\emirr\source\repos\GiyimETicaret\GiyimETicaret.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\emirr\source\repos\GiyimETicaret\GiyimETicaret.DAL\obj\Debug\GiyimETicaret.DAL.csproj.AssemblyReference.cache
+C:\Users\emirr\source\repos\GiyimETicaret\GiyimETicaret.DAL\obj\Debug\GiyimETicaret.DAL.csproj.CoreCompileInputs.cache
+C:\Users\emirr\source\repos\GiyimETicaret\GiyimETicaret.DAL\obj\Debug\GiyimETicaret.DAL.csproj.CopyComplete
+C:\Users\emirr\source\repos\GiyimETicaret\GiyimETicaret.DAL\obj\Debug\GiyimETicaret.DAL.dll
+C:\Users\emirr\source\repos\GiyimETicaret\GiyimETicaret.DAL\obj\Debug\GiyimETicaret.DAL.pdb

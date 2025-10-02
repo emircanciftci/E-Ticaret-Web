@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GiyimETicaretModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Brands">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Products__BrandI__2C3393D0" FromRole="Brands" ToRole="Products" />
+    <Property Name="İmageID" Type="Int32" />
+    <NavigationProperty Name="ProductImages" Relationship="GiyimETicaretModel.FK_Brands_ProductImages" FromRole="Brands" ToRole="ProductImages" />
+  </EntityType>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Products__Catego__2B3F6F97" FromRole="Categories" ToRole="Products" />
+    <Property Name="İmageID" Type="Int32" />
+    <NavigationProperty Name="ProductImages" Relationship="GiyimETicaretModel.FK_Categories_ProductImages" FromRole="Categories" ToRole="ProductImages" />
+  </EntityType>
+  <EntityType Name="Color">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Products_Color" FromRole="Color" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="CustomerUsers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordHash" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__UserID__35BCFE0A" FromRole="CustomerUsers" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Discounts">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="DiscountRate" Type="Decimal" Precision="3" Scale="0" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Discounts_Products" FromRole="Discounts" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="OrderItems">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="UnitPrice" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__OrderItem__Order__38996AB5" FromRole="OrderItems" ToRole="Orders" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__OrderItem__Produ__398D8EEE" FromRole="OrderItems" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerUserID" Type="Int32" />
+    <Property Name="OrderDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TotalPrice" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="CustomerUsers" Relationship="Self.FK__Orders__UserID__35BCFE0A" FromRole="Orders" ToRole="CustomerUsers" />
+    <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Order__38996AB5" FromRole="Orders" ToRole="OrderItems" />
+    <NavigationProperty Name="Payments" Relationship="Self.FK__Payments__OrderI__3E52440B" FromRole="Orders" ToRole="Payments" />
+  </EntityType>
+  <EntityType Name="Payments">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" />
+    <Property Name="PaymentMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+    <Property Name="Amount" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Payments__OrderI__3E52440B" FromRole="Payments" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="ProductImages">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImageURL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Products_ProductImages" FromRole="ProductImages" ToRole="Products" />
+    <NavigationProperty Name="Brands" Relationship="GiyimETicaretModel.FK_Brands_ProductImages" FromRole="ProductImages" ToRole="Brands" />
+    <NavigationProperty Name="Categories" Relationship="GiyimETicaretModel.FK_Categories_ProductImages" FromRole="ProductImages" ToRole="Categories" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="Stock" Type="Int32" />
+    <Property Name="CategoryID" Type="Int32" />
+    <Property Name="BrandID" Type="Int32" />
+    <Property Name="ImageID" Type="Int32" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
+    <Property Name="ColorID" Type="Int32" />
+    <Property Name="SizeID" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" />
+    <NavigationProperty Name="Brands" Relationship="Self.FK__Products__BrandI__2C3393D0" FromRole="Products" ToRole="Brands" />
+    <NavigationProperty Name="Categories" Relationship="Self.FK__Products__Catego__2B3F6F97" FromRole="Products" ToRole="Categories" />
+    <NavigationProperty Name="Color" Relationship="Self.FK_Products_Color" FromRole="Products" ToRole="Color" />
+    <NavigationProperty Name="Discounts" Relationship="Self.FK_Discounts_Products" FromRole="Products" ToRole="Discounts" />
+    <NavigationProperty Name="OrderItems" Relationship="Self.FK__OrderItem__Produ__398D8EEE" FromRole="Products" ToRole="OrderItems" />
+    <NavigationProperty Name="ProductImages" Relationship="Self.FK_Products_ProductImages" FromRole="Products" ToRole="ProductImages" />
+    <NavigationProperty Name="Size" Relationship="Self.FK_Products_Size" FromRole="Products" ToRole="Size" />
+  </EntityType>
+  <EntityType Name="Size">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Products_Size" FromRole="Size" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__Products__BrandI__2C3393D0">
+    <End Role="Brands" Type="Self.Brands" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brands">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="BrandID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Products__Catego__2B3F6F97">
+    <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Color">
+    <End Role="Color" Type="Self.Color" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Color">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="ColorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__UserID__35BCFE0A">
+    <End Role="CustomerUsers" Type="Self.CustomerUsers" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerUsers">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="CustomerUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Discounts_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+    <End Role="Discounts" Type="Self.Discounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Discounts">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderItem__Order__38996AB5">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+    <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderItems">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderItem__Produ__398D8EEE">
+    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+    <End Role="OrderItems" Type="Self.OrderItems" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderItems">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Payments__OrderI__3E52440B">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+    <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_ProductImages">
+    <End Role="ProductImages" Type="Self.ProductImages" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductImages">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="ImageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Size">
+    <End Role="Size" Type="Self.Size" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Size">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="SizeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GiyimETicaretEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Brands" EntityType="Self.Brands" />
+    <EntitySet Name="Categories" EntityType="Self.Categories" />
+    <EntitySet Name="Color" EntityType="Self.Color" />
+    <EntitySet Name="CustomerUsers" EntityType="Self.CustomerUsers" />
+    <EntitySet Name="Discounts" EntityType="Self.Discounts" />
+    <EntitySet Name="OrderItems" EntityType="Self.OrderItems" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" />
+    <EntitySet Name="Payments" EntityType="Self.Payments" />
+    <EntitySet Name="ProductImages" EntityType="Self.ProductImages" />
+    <EntitySet Name="Products" EntityType="Self.Products" />
+    <EntitySet Name="Size" EntityType="Self.Size" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK__Products__BrandI__2C3393D0" Association="Self.FK__Products__BrandI__2C3393D0">
+      <End Role="Brands" EntitySet="Brands" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Products__Catego__2B3F6F97" Association="Self.FK__Products__Catego__2B3F6F97">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Color" Association="Self.FK_Products_Color">
+      <End Role="Color" EntitySet="Color" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__UserID__35BCFE0A" Association="Self.FK__Orders__UserID__35BCFE0A">
+      <End Role="CustomerUsers" EntitySet="CustomerUsers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Discounts_Products" Association="Self.FK_Discounts_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Discounts" EntitySet="Discounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderItem__Order__38996AB5" Association="Self.FK__OrderItem__Order__38996AB5">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderItems" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderItem__Produ__398D8EEE" Association="Self.FK__OrderItem__Produ__398D8EEE">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="OrderItems" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Payments__OrderI__3E52440B" Association="Self.FK__Payments__OrderI__3E52440B">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_ProductImages" Association="Self.FK_Products_ProductImages">
+      <End Role="ProductImages" EntitySet="ProductImages" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Size" Association="Self.FK_Products_Size">
+      <End Role="Size" EntitySet="Size" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Brands_ProductImages" Association="GiyimETicaretModel.FK_Brands_ProductImages">
+      <End Role="ProductImages" EntitySet="ProductImages" />
+      <End Role="Brands" EntitySet="Brands" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Categories_ProductImages" Association="GiyimETicaretModel.FK_Categories_ProductImages">
+      <End Role="ProductImages" EntitySet="ProductImages" />
+      <End Role="Categories" EntitySet="Categories" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_Brands_ProductImages">
+    <End Type="GiyimETicaretModel.ProductImages" Role="ProductImages" Multiplicity="0..1" />
+    <End Type="GiyimETicaretModel.Brands" Role="Brands" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductImages">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Brands">
+        <PropertyRef Name="İmageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Categories_ProductImages">
+    <End Type="GiyimETicaretModel.ProductImages" Role="ProductImages" Multiplicity="0..1" />
+    <End Type="GiyimETicaretModel.Categories" Role="Categories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductImages">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Categories">
+        <PropertyRef Name="İmageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

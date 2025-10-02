@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+@model GiyimETicaret.UI.Models.CategoriesVM
+
+<div class="col-12 mt-5"></div>
+<div class="new_arrivals">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <div class="section_title new_arrivals_title">
+                    <h2>@Model.CategoriesName</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+
+                    @foreach (var item in Model.ProductsList)
+                    {
+                        var Discounts = Model.DiscountsList?.FirstOrDefault(x => x.ProductID == item.ID);
+                        var NewProduct = Model.ProductsNewList.ToList();
+
+                        <div class="product-item">
+                            <div class="product product_filter">
+                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>-$20</span></div>
+                                <div class="product_image">
+                                    <img src="@item.ProductImages.ImageURL" alt="">
+                                </div>
+                                @if (NewProduct.Contains(item))
+                                {
+                                    <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center"><span>new</span></div>
+                                }
+                                @if (Discounts != null)
+                                {
+                                    <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>%@Discounts.DiscountRate</span></div>
+                                }
+                                <div class="product_info">
+                                    <h6 class="product_name"><a href="single.html">@item.Name</a></h6>
+                                    @if (Discounts != null)
+                                    {
+                                        <div class="product_price">@(item.Price - (item.Price * Discounts.DiscountRate / 100)) ₺<span>@item.Price ₺</span></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="product_price">@item.Price ₺</div>
+                                    }
+                                    <div class="favorite"></div>
+                                </div>
+                            </div>
+                            <div class="red_button add_to_cart_button"><a href="#">Sepete Ekle</a></div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
